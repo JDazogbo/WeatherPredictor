@@ -24,7 +24,7 @@ void main(void)
     initialize();
     for (unsigned char i = 0; 1; i++)
     {
-        sendChar(0b10100110);
+        sendChar('$');
         __delay_ms(10);
     }
 
