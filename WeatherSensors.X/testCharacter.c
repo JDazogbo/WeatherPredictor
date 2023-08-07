@@ -15,17 +15,22 @@
 
 #define _XTAL_FREQ 4000000
 
-//BAUD RATE IS WAY TO HIGH (currently set up at 38400) REDUCE OR PERFORMANCE ISSUES ARE BOUND TO HAPPEND
-//The Putty Interpreter is in UTF8 but when using the Char from the pic compiler, the characters will be transformed with
-//  the ASCII conversion
+
 
 void main(void)
 {
-    initialize();
-    for (unsigned char i = 0; 1; i++)
+    TRIS = 0b0010;
+    setBit(GPIObits.GP0, BLUETOOTH_TX_GPIO);
+    unsigned char temp;
+    while(1)
     {
-        sendChar('$');
-        __delay_ms(10);
+        if (GPIObits.GP1 == 0)
+        {
+            readChar(&temp);
+            sendChar(temp);
+            __delay_ms(10);
+        }
+
     }
 
 
