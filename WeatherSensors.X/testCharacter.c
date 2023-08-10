@@ -27,8 +27,18 @@ void main(void)
         if (GPIObits.GP1 == 0)
         {
             readChar(&temp);
-            sendChar(temp);
-            __delay_ms(10);
+            if (temp=='T')
+            {
+                sendChar('O');
+                sendChar('k');
+                sendChar(11);
+            }
+            else
+            {
+                sendChar('N');
+                sendChar('o');
+                sendChar(11);
+            }
         }
 
     }
