@@ -1,5 +1,5 @@
 /* 
- * File:   BluetoothUART.h
+ * File:   HC05.h
  * Author: JDazogbo
 
  * Created on July 29, 2023, 7:11 PM
@@ -8,19 +8,15 @@
  *       to correctly interpret what the message is truly saying. This is true when a byte is read and when a byte is sent.
  */
 
-#ifndef BLUETOOTHUART_H
-#define	BLUETOOTHUART_H
+#ifndef HC05_H
+#define	HC05_H
 
 //Imports
 #include <xc.h>
+#include "SensorSystem.h"
 
 
 //Parameter Variables
-#define BAUD_DELAY_TX 50 //This value in seconds might be lower than the theoretical value. Check with tests value to validate.
-#define BAUD_DELAY_RX BAUD_DELAY_TX-5//The Delay is considered to be slightly lower than the TX value. Play with these values for optimal performance
-#define BLUETOOTH_TX_GPIO 0//Pin that transmits info to the HC-05 module
-#define BLUETOOTH_RX_GPIO 1//Pin that receives signals from HC-05 module
-#define _XTAL_FREQ 4000000//Clock frequency of the uC
 
 //Usefull Macros
 #define setBit(variable, position) ((variable) |= 1 << (position))
@@ -49,7 +45,6 @@ void reverseByte(unsigned char *pByte)
 void readChar(unsigned char *pResult)
 {
     //Add a delay for the first initial bit. This delay is useless for the pic10f200 as the pic is too slow
-    //__delay_us(BAUD_DELAY/2); //We add a constant delay to take into account the time it takes to run the for loop instruction
     
     //Reads a bit at a time and waits for the value.
     for (unsigned char i = 8; i>0; i--)
@@ -86,10 +81,7 @@ void sendChar(unsigned char character)
     setBit(GPIObits.GP0, BLUETOOTH_TX_GPIO);
     __delay_us(BAUD_DELAY_TX);
     
-    
 }
-
-
 
 
 #ifdef	__cplusplus
@@ -102,5 +94,5 @@ extern "C" {
 }
 #endif
 
-#endif	/* BLUETOOTHUART_H */
+#endif	/* HC05_H */
 

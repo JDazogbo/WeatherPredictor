@@ -34,4 +34,4 @@ MP_CC_DIR="D:\Program Files\MPLABX\xc8\2.40\bin"
 MP_AS_DIR="D:\Program Files\MPLABX\xc8\2.40\bin"
 MP_LD_DIR="D:\Program Files\MPLABX\xc8\2.40\bin"
 MP_AR_DIR="D:\Program Files\MPLABX\xc8\2.40\bin"
-DFP_DIR=C:/Users/Josue/.mchp_packs/Microchip/PIC10-12Fxxx_DFP/1.6.174
+DFP_DIR=D:/Program Files/MPLABX/packs/Microchip/PIC10-12Fxxx_DFP/1.5.61
