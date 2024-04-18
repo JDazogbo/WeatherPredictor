@@ -45,13 +45,24 @@ void reverseByte(unsigned char *pByte)
 void readChar(unsigned char *pResult)
 {
     //Add a delay for the first initial bit. This delay is useless for the pic10f200 as the pic is too slow
-    
     //Reads a bit at a time and waits for the value.
+    __delay_us(BAUD_DELAY_RX/2);
+    unsigned char temp;
+    for (unsigned char i = 0; i<8; i++)
+    {
+        __delay_us(BAUD_DELAY_RX); //NOTE: The delay here seems to be lower than the actual send rate delay. Play with values to get a correct output.
+        checkBit(GPIO, BLUETOOTH_RX_GPIO)
+    }
+    
+    
+    
     for (unsigned char i = 8; i>0; i--)
     {
-        
-        checkBit(GPIO, BLUETOOTH_RX_GPIO)? setBit(*pResult, i): clearBit(*pResult, i);
         __delay_us(BAUD_DELAY_RX); //NOTE: The delay here seems to be lower than the actual send rate delay. Play with values to get a correct output.
+        checkBit(GPIO, BLUETOOTH_RX_GPIO)? setBit(*pResult, i): clearBit(*pResult, i);
+        setBit(GPIO, BLUETOOTH_TX_GPIO);
+        clearBit(GPIO, BLUETOOTH_TX_GPIO);
+        
     }
     //Reverses the byte when the value is known
     reverseByte(pResult);
@@ -65,22 +76,30 @@ void sendChar(unsigned char character)
     reverseByte(&character);
     
     //Start with the Start bit. This value indicates when the communication starts
-    clearBit(GPIObits.GP0, BLUETOOTH_TX_GPIO); 
+    clearBit(GPIO, BLUETOOTH_TX_GPIO); 
     __delay_us(BAUD_DELAY_TX);
     
     //Change the GPIO depending on the bit
     for (unsigned char i = 8; i>0; i--)
     {
         
-        checkBit(character, i-1)? setBit(GPIObits.GP0, BLUETOOTH_TX_GPIO): clearBit(GPIObits.GP0, BLUETOOTH_TX_GPIO);
+        checkBit(character, i-1)? setBit(GPIO, BLUETOOTH_TX_GPIO): clearBit(GPIO, BLUETOOTH_TX_GPIO);
         __delay_us(BAUD_DELAY_TX);
     }
     
     //Set the end bit
-    __delay_us(BAUD_DELAY_TX+30); //We add a constant delay to take into account the time it takes to run the for loop instruction
-    setBit(GPIObits.GP0, BLUETOOTH_TX_GPIO);
     __delay_us(BAUD_DELAY_TX);
+    setBit(GPIO, BLUETOOTH_TX_GPIO);
     
+}
+void sendString(unsigned char str[])
+{
+    unsigned char i = 0;
+    while (str[i] != '\0')
+    {
+        sendChar(str[i]);
+        i = i+1;
+    }
 }
 
 
