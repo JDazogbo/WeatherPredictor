@@ -46,25 +46,14 @@ void readChar(unsigned char *pResult)
 {
     //Add a delay for the first initial bit. This delay is useless for the pic10f200 as the pic is too slow
     //Reads a bit at a time and waits for the value.
+    *pResult = 0;
     __delay_us(BAUD_DELAY_RX/2);
-    unsigned char temp;
     for (unsigned char i = 0; i<8; i++)
     {
         __delay_us(BAUD_DELAY_RX); //NOTE: The delay here seems to be lower than the actual send rate delay. Play with values to get a correct output.
-        checkBit(GPIO, BLUETOOTH_RX_GPIO)
+        *pResult |= checkBit(GPIO, BLUETOOTH_RX_GPIO);
+        *pResult = *pResult<<1;
     }
-    
-    
-    
-    for (unsigned char i = 8; i>0; i--)
-    {
-        __delay_us(BAUD_DELAY_RX); //NOTE: The delay here seems to be lower than the actual send rate delay. Play with values to get a correct output.
-        checkBit(GPIO, BLUETOOTH_RX_GPIO)? setBit(*pResult, i): clearBit(*pResult, i);
-        setBit(GPIO, BLUETOOTH_TX_GPIO);
-        clearBit(GPIO, BLUETOOTH_TX_GPIO);
-        
-    }
-    //Reverses the byte when the value is known
     reverseByte(pResult);
 }
 

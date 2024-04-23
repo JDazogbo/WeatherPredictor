@@ -7,9 +7,15 @@
 
 
 // CONFIG
-#pragma config WDTE = OFF       // Watchdog Timer (WDT disabled)
-#pragma config CP = OFF         // Code Protect (Code protection off)
-#pragma config MCLRE = ON      // Master Clear Enable (GP3/MCLR pin fuction is digital I/O, MCLR internally tied to VDD)
+#pragma config FOSC = INTOSCCLK // Oscillator Selection bits (INTOSC oscillator: CLKOUT function on RA4/OSC2/CLKOUT pin, I/O function on RA5/OSC1/CLKIN)
+#pragma config WDTE = OFF       // Watchdog Timer Enable bit (WDT disabled)
+#pragma config PWRTE = OFF      // Power-up Timer Enable bit (PWRT disabled)
+#pragma config MCLRE = OFF      // MCLR Pin Function Select bit (MCLR pin function is digital input, MCLR internally tied to VDD)
+#pragma config CP = OFF         // Code Protection bit (Program memory code protection is disabled)
+#pragma config CPD = OFF        // Data Code Protection bit (Data memory code protection is disabled)
+#pragma config BOREN = OFF      // Brown Out Detect (BOR disabled)
+#pragma config IESO = OFF       // Internal External Switchover bit (Internal External Switchover mode is disabled)
+#pragma config FCMEN = OFF      // Fail-Safe Clock Monitor Enabled bit (Fail-Safe Clock Monitor is disabled)
 #include <xc.h>
 
 #include "SensorSystem.h"
@@ -35,8 +41,7 @@ void main(void)
     charBuffer = 0b01010101;
     while(1)
     {
-//        sendChar(charBuffer);
-        __delay_us(250);
+        asm("sleep");
     }
     
     
@@ -48,8 +53,8 @@ void main(void)
 //Interrupt subroutine
 void __interrupt() interrupt_service_routine(void)
 {   
-    setBit(GPIO, BLUETOOTH_TX_GPIO);
-    clearBit(GPIO, BLUETOOTH_TX_GPIO);
     readChar(&charBuffer);
+    sendChar(charBuffer);
     INTCONbits.INTF = 0;
+    
 }
