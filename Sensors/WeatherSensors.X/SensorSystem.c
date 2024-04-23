@@ -39,7 +39,7 @@ void run_boot_up(SensorSystem* pSensorSystem)
     
     #endif //MICROCONTROLLER
     CONSOLE_PRINT("\033c"); //Clear Screen
-    __delay_ms(100);
+    SLEEP_FOR_MS(100);
     CONSOLE_PRINT("####\n\rWeather Sensor Console\n\r####\r\n");
     pSensorSystem->next_operation = &run_sleep;
 }
