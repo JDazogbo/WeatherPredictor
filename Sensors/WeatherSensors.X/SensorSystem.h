@@ -59,7 +59,7 @@ struct SensorSystem
 {
     state current_state;
     operation next_operation;
-    message message_buffer; 
+    volatile message* message_buffer; 
     uint8 measurements[NUMBER_OF_MEASUREMENTS];
 };
 
