@@ -24,7 +24,7 @@ void run_boot_up(SensorSystem* pSensorSystem)
 {
     pSensorSystem->current_state = BOOT_UP;
     
-    #ifdef MICROCONTROLLER
+    #if MICROCONTROLLER
 
     /* Register Configuration Bits */
     TRISIO = 0b0100; //Sets GP0 -> Output, GP2 -> Input 
@@ -74,7 +74,7 @@ int main() {
     return 0;
 }
 
-#ifdef MICROCONTROLLER
+#if MICROCONTROLLER
 
 //Interrupt subroutine for the HC-05 Module
 void __interrupt() received_character(void)
