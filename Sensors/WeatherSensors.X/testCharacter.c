@@ -17,21 +17,39 @@
 
 #define PIC12F683
 
+unsigned char charBuffer;
+unsigned long long temp;
+
 void main(void)
 {
-    TRISIO = 0b0010;
-    setBit(GPIO, BLUETOOTH_TX_GPIO);    
-    unsigned char temp;
+    TRISIO = 0b0100;
+    
+    //Lookup how to clear interrupt flags
+    ANSEL = 0b00000000; //Sets the analog/digital choice to digital for every pin
+    INTCONbits.INTF = 0; //Clear interrupt bit for good measure
+    OPTION_REGbits.INTEDG = 0; //Interrupt on Falling Edge
+    INTCONbits.GIE = 1;
+    INTCONbits.INTE = 1; //Interrupt on Change Enable
+    
+    setBit(GPIO, BLUETOOTH_TX_GPIO);
+    charBuffer = 0b01010101;
     while(1)
     {
-
-        for (unsigned char i = 48; i<123; i++)
-        {
-            sendChar(i);
-            __delay_ms(200);
-        }
+//        sendChar(charBuffer);
+        __delay_us(250);
     }
+    
+    
 
 
     return;
+}
+
+//Interrupt subroutine
+void __interrupt() interrupt_service_routine(void)
+{   
+    setBit(GPIO, BLUETOOTH_TX_GPIO);
+    clearBit(GPIO, BLUETOOTH_TX_GPIO);
+    readChar(&charBuffer);
+    INTCONbits.INTF = 0;
 }

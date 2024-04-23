@@ -1,6 +1,6 @@
 /* 
  * File:   SensorSystem.h
- * Author: Josue
+ * Author: JDazogob
  *
  * Created on April 13, 2024, 6:30 PM
  */
@@ -8,7 +8,7 @@
 #ifndef SENSORSYSTEM
 #define	SENSORSYSTEM
 
-
+/* Includes Statements Dependent */
 #include "Typedefs.h"
 #include "BitMacros.h"
 
@@ -26,10 +26,11 @@
 /* Bluetooth Sensor Define Statements */
 #define BAUD_RATE 38400
 #define BAUD_EXTRA_DELAY 2
-#define BAUD_DELAY_TX 1000000/BAUD_RATE + BAUD_EXTRA_DELAY //This value in seconds might be higher than the theoretical value. Check with tests value to validate.
-#define BAUD_DELAY_RX BAUD_DELAY_TX//The Delay is considered to be slightly lower than the TX value. Play with these values for optimal performance
+#define BAUD_DELAY_TX 1000000/BAUD_RATE//This value in seconds might be higher than the theoretical value. Check with tests value to validate.
+#define BAUD_DELAY_RX 1000000/(BAUD_RATE)-15//The Delay is considered to be slightly lower than the TX value. Play with these values for optimal performance
+
 #define BLUETOOTH_TX_GPIO 0//Pin that transmits info to the HC-05 module
-#define BLUETOOTH_RX_GPIO 1//Pin that receives signals from HC-05 module
+#define BLUETOOTH_RX_GPIO 2//Pin that receives signals from HC-05 module
 
 
 /* Measurement Define Statements */
@@ -83,16 +84,25 @@ void run_report_serial(SensorSystem* pSensorSystem);
 /* Print Macros for Execution */
 #if MICROCONTROLLER
 
-#define CONSOLE_PRINT(string) sendString(string)
-#define DEBUG_PRINT(string) DEBUG_MODE ? sendString(string) : 0
+#define CONSOLE_PRINT(string) sendString(string) //Prints to HC-05 module
+#define DEBUG_PRINT(string) DEBUG_MODE ? sendString(string) : 0 //Prints to HC-05 module if debug mode is enabled
 
 #endif	//MICROCONTROLLER
 
 #if WINDOWS
 
-#define CONSOLE_PRINT(string) printf(string)
-#define DEBUG_PRINT(string) DEBUG_MODE ? printf(string) : 0
+#define CONSOLE_PRINT(string) printf(string) //Prints to Command Prompt
+#define DEBUG_PRINT(string) DEBUG_MODE ? printf(string) : 0 //Prints to Command Prompt if debug mode is enabled
 
+#endif //WINDOWS
+
+/* Sleep Command */
+#if MICROCONTROLLER
+#define SLEEP() asm('sleep') //Places the board to sleep and waits for an interrupt
+#endif	//MICROCONTROLLER
+
+#if WINDOWS
+#define SLEEP() 0 //Empty instruction on windows
 #endif //WINDOWS
 
 #endif //SENSORSYSTEM

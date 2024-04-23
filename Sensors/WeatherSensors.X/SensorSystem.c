@@ -1,6 +1,13 @@
+///*
+// * File:   SensorSystem.c
+// * Author: JDazogbo
+// *
+// * Created on April 14, 2024, 7:43 PM
+// *
+
 #include "SensorSystem.h"
 
-#define DEBUG_MODE 1
+#define DEBUG_MODE 1 //Toggle for Debug Prints and Commands
 
 void run_boot_up(SensorSystem* pSensorSystem)
 {
@@ -13,8 +20,8 @@ void run_sleep(SensorSystem* pSensorSystem)
 {
     pSensorSystem->current_state = SLEEP;
     DEBUG_PRINT("Device was sent to sleep\n");
+    SLEEP();
     pSensorSystem->next_operation = &run_measure_data;
-    
 }
 void run_measure_data(SensorSystem* pSensorSystem)
 {
@@ -27,7 +34,6 @@ void run_report_serial(SensorSystem* pSensorSystem)
 {
     pSensorSystem->current_state = REPORT_SERIAL;
     DEBUG_PRINT("Sending Data to HC-05 Bluetooth Sensor\n");
-    DEBUG_PRINT("\n");
     pSensorSystem->next_operation = &run_sleep;
 }
 
