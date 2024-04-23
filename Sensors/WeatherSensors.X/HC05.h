@@ -20,7 +20,8 @@
 void reverseByte(uint8 *pByte);
 void readChar(uint8 *pResult);
 void sendChar(uint8 character);
-void sendString(unsigned char str[]);
+void sendString(uint8 str[]);
+char decodeInt(uint8 integer);
 
 #endif	/* HC05_H */
 

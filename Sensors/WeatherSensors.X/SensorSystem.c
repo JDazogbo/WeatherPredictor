@@ -16,7 +16,7 @@
 
 #include "SensorSystem.h"
 
-#define DEBUG_MODE 1 //Toggle for Debug Prints and Commands
+#define DEBUG_MODE 0 //Toggle for Debug Prints and Commands
 
 message message_buffer = NULL_MESSAGE;
 
@@ -39,16 +39,26 @@ void run_boot_up(SensorSystem* pSensorSystem)
     
     #endif //MICROCONTROLLER
     CONSOLE_PRINT("\033c"); //Clear Screen
-    __delay_ms(100);
-    CONSOLE_PRINT("####\n\rWeather Sensor Console\n\r####\r\n");
+    CONSOLE_PRINT("#~~~~~~~~~~~~~~~~~~~~~~~~#\n\r  Weather Sensor Console\n\r#~~~~~~~~~~~~~~~~~~~~~~~~#\r\n");
     pSensorSystem->next_operation = &run_sleep;
 }
 void run_sleep(SensorSystem* pSensorSystem)
 {
     pSensorSystem->current_state = SLEEP;
-    DEBUG_PRINT("Device was sent to sleep\n\r");
+    CONSOLE_PRINT("\n\rHC-05> ");
+    DEBUG_PRINT("\n\rDevice was sent to sleep\n\r");
     SLEEP();
-    pSensorSystem->next_operation = &run_measure_data;
+    switch (message_buffer)
+    {
+        case 'P':
+            pSensorSystem->next_operation = &run_report_serial;
+            break;
+        default:
+            CONSOLE_PRINT("\n\rError: Message is not Valid\n\r");
+            pSensorSystem->next_operation = &run_sleep;
+            break;
+    }
+
 }
 void run_measure_data(SensorSystem* pSensorSystem)
 {
@@ -61,17 +71,22 @@ void run_report_serial(SensorSystem* pSensorSystem)
 {
     pSensorSystem->current_state = REPORT_SERIAL;
     DEBUG_PRINT("Sending Data to HC-05 Bluetooth Sensor\n\r");
+    CONSOLE_PRINT("\n\rTemperature: ");
+    CONSOLE_PRINT("\n\rPressure: ");
+    CONSOLE_PRINT("\n\rHumidity: ");
+    CONSOLE_PRINT("\n\r");
     pSensorSystem->next_operation = &run_sleep;
 }
 
 int main() {
     SensorSystem sys = {NULL_STATE, &run_boot_up, &message_buffer};
     
-    for (uint8 i = 0; i < 30; i++ )
+    while (1)
     {
         sys.next_operation(&sys);
     }
-    return 0;
+        
+
 }
 
 #if MICROCONTROLLER

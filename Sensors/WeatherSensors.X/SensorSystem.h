@@ -43,7 +43,7 @@ typedef enum state
 
 typedef enum message
 {
-    NULL_MESSAGE,
+    NULL_MESSAGE = 0,
     //Data Measurement Messages
     UPDATE_TEMPERATURE,
     UPDATE_HUMIDITY,

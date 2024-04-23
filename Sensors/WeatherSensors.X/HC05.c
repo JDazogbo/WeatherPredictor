@@ -61,7 +61,7 @@ void sendChar(uint8 character)
     setBit(GPIO, BLUETOOTH_TX_GPIO);
     
 }
-void sendString(unsigned char str[])
+void sendString(uint8 str[])
 {
     unsigned char i = 0;
     while (str[i] != '\0')
