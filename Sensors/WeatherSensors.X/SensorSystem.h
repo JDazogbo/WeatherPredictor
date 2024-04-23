@@ -85,13 +85,19 @@ void run_report_serial(SensorSystem* pSensorSystem);
 
 #endif //WINDOWS
 
-/* Sleep Command */
+/* Sleep Commands */
 #if MICROCONTROLLER
+
 #define SLEEP() asm("sleep") //Places the board to sleep and waits for an interrupt
+#define SLEEP_FOR_MS(time) __delay_ms(time) //Places the board in sleep for a certain ammount of miliseconds
+
 #endif	//MICROCONTROLLER
 
 #if WINDOWS
+
 #define SLEEP() 0 //Empty instruction on windows
+#define SLEEP_FOR_MS(time) 0 //Empty instruction on windows
+
 #endif //WINDOWS
 
 #endif //SENSORSYSTEM
