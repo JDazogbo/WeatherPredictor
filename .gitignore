@@ -175,10 +175,10 @@ cython_debug/
 *.production
 *.debug
 html/
-nbproject/private/
-nbproject/Package-*.bash
-nbbuild/
-nbdist/
+Sensors/WeatherSensors.X/nbproject/private
+Sensors/WeatherSensors.X/nbproject/Package-*.bash
+Sensors/WeatherSensors.X/nbbuild/
+Sensors/WeatherSensors.X/nbdist/
 nbactions.xml
 nb-configuration.xml
 funclist
