@@ -51,17 +51,17 @@ OBJECTDIR=build/${CND_CONF}/${IMAGE_TYPE}
 DISTDIR=dist/${CND_CONF}/${IMAGE_TYPE}
 
 # Source Files Quoted if spaced
-SOURCEFILES_QUOTED_IF_SPACED=testCharacter.c SensorSystem.c
+SOURCEFILES_QUOTED_IF_SPACED=testCharacter.c SensorSystem.c HC05.c
 
 # Object Files Quoted if spaced
-OBJECTFILES_QUOTED_IF_SPACED=${OBJECTDIR}/testCharacter.p1 ${OBJECTDIR}/SensorSystem.p1
-POSSIBLE_DEPFILES=${OBJECTDIR}/testCharacter.p1.d ${OBJECTDIR}/SensorSystem.p1.d
+OBJECTFILES_QUOTED_IF_SPACED=${OBJECTDIR}/testCharacter.p1 ${OBJECTDIR}/SensorSystem.p1 ${OBJECTDIR}/HC05.p1
+POSSIBLE_DEPFILES=${OBJECTDIR}/testCharacter.p1.d ${OBJECTDIR}/SensorSystem.p1.d ${OBJECTDIR}/HC05.p1.d
 
 # Object Files
-OBJECTFILES=${OBJECTDIR}/testCharacter.p1 ${OBJECTDIR}/SensorSystem.p1
+OBJECTFILES=${OBJECTDIR}/testCharacter.p1 ${OBJECTDIR}/SensorSystem.p1 ${OBJECTDIR}/HC05.p1
 
 # Source Files
-SOURCEFILES=testCharacter.c SensorSystem.c
+SOURCEFILES=testCharacter.c SensorSystem.c HC05.c
 
 
 
@@ -104,6 +104,14 @@ ${OBJECTDIR}/SensorSystem.p1: SensorSystem.c  nbproject/Makefile-${CND_CONF}.mk
 	@-${MV} ${OBJECTDIR}/SensorSystem.d ${OBJECTDIR}/SensorSystem.p1.d 
 	@${FIXDEPS} ${OBJECTDIR}/SensorSystem.p1.d $(SILENT) -rsi ${MP_CC_DIR}../  
 	
+${OBJECTDIR}/HC05.p1: HC05.c  nbproject/Makefile-${CND_CONF}.mk 
+	@${MKDIR} "${OBJECTDIR}" 
+	@${RM} ${OBJECTDIR}/HC05.p1.d 
+	@${RM} ${OBJECTDIR}/HC05.p1 
+	${MP_CC} $(MP_EXTRA_CC_PRE) -mcpu=$(MP_PROCESSOR_OPTION) -c  -D__DEBUG=1  -mdebugger=pickit4   -mdfp="${DFP_DIR}/xc8"  -fno-short-double -fno-short-float -O0 -fasmfile -maddrqual=ignore -xassembler-with-cpp -mwarn=-3 -Wa,-a -DXPRJ_default=$(CND_CONF)  -msummary=-psect,-class,+mem,-hex,-file  -ginhx32 -Wl,--data-init -mno-keep-startup -mno-osccal -mno-resetbits -mno-save-resetbits -mno-download -mno-stackcall -mdefault-config-bits $(COMPARISON_BUILD)  -std=c99 -gdwarf-3 -mstack=compiled:auto:auto     -o ${OBJECTDIR}/HC05.p1 HC05.c 
+	@-${MV} ${OBJECTDIR}/HC05.d ${OBJECTDIR}/HC05.p1.d 
+	@${FIXDEPS} ${OBJECTDIR}/HC05.p1.d $(SILENT) -rsi ${MP_CC_DIR}../  
+	
 else
 ${OBJECTDIR}/testCharacter.p1: testCharacter.c  nbproject/Makefile-${CND_CONF}.mk 
 	@${MKDIR} "${OBJECTDIR}" 
@@ -120,6 +128,14 @@ ${OBJECTDIR}/SensorSystem.p1: SensorSystem.c  nbproject/Makefile-${CND_CONF}.mk
 	${MP_CC} $(MP_EXTRA_CC_PRE) -mcpu=$(MP_PROCESSOR_OPTION) -c   -mdfp="${DFP_DIR}/xc8"  -fno-short-double -fno-short-float -O0 -fasmfile -maddrqual=ignore -xassembler-with-cpp -mwarn=-3 -Wa,-a -DXPRJ_default=$(CND_CONF)  -msummary=-psect,-class,+mem,-hex,-file  -ginhx32 -Wl,--data-init -mno-keep-startup -mno-osccal -mno-resetbits -mno-save-resetbits -mno-download -mno-stackcall -mdefault-config-bits $(COMPARISON_BUILD)  -std=c99 -gdwarf-3 -mstack=compiled:auto:auto     -o ${OBJECTDIR}/SensorSystem.p1 SensorSystem.c 
 	@-${MV} ${OBJECTDIR}/SensorSystem.d ${OBJECTDIR}/SensorSystem.p1.d 
 	@${FIXDEPS} ${OBJECTDIR}/SensorSystem.p1.d $(SILENT) -rsi ${MP_CC_DIR}../  
+	
+${OBJECTDIR}/HC05.p1: HC05.c  nbproject/Makefile-${CND_CONF}.mk 
+	@${MKDIR} "${OBJECTDIR}" 
+	@${RM} ${OBJECTDIR}/HC05.p1.d 
+	@${RM} ${OBJECTDIR}/HC05.p1 
+	${MP_CC} $(MP_EXTRA_CC_PRE) -mcpu=$(MP_PROCESSOR_OPTION) -c   -mdfp="${DFP_DIR}/xc8"  -fno-short-double -fno-short-float -O0 -fasmfile -maddrqual=ignore -xassembler-with-cpp -mwarn=-3 -Wa,-a -DXPRJ_default=$(CND_CONF)  -msummary=-psect,-class,+mem,-hex,-file  -ginhx32 -Wl,--data-init -mno-keep-startup -mno-osccal -mno-resetbits -mno-save-resetbits -mno-download -mno-stackcall -mdefault-config-bits $(COMPARISON_BUILD)  -std=c99 -gdwarf-3 -mstack=compiled:auto:auto     -o ${OBJECTDIR}/HC05.p1 HC05.c 
+	@-${MV} ${OBJECTDIR}/HC05.d ${OBJECTDIR}/HC05.p1.d 
+	@${FIXDEPS} ${OBJECTDIR}/HC05.p1.d $(SILENT) -rsi ${MP_CC_DIR}../  
 	
 endif
 

@@ -37,12 +37,12 @@ void run_report_serial(SensorSystem* pSensorSystem)
     pSensorSystem->next_operation = &run_sleep;
 }
 
-int main() {
-    SensorSystem sys = {NULL_STATE, &run_boot_up, NULL_MESSAGE};
-    
-    for (uint8 i = 0; i < 30; i++ )
-    {
-        sys.next_operation(&sys);
-    }
-    return 0;
-}
+//int main() {
+//    SensorSystem sys = {NULL_STATE, &run_boot_up, NULL_MESSAGE};
+//    
+//    for (uint8 i = 0; i < 30; i++ )
+//    {
+//        sys.next_operation(&sys);
+//    }
+//    return 0;
+//}

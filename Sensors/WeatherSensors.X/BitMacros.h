@@ -7,6 +7,8 @@
  * 
  */
 
+#ifndef BITMACROS_H
+#define	BITMACROS_H
 
 //Usefull Macros
 #define setBit(variable, position) ((variable) |= 1 << (position))
@@ -15,3 +17,5 @@
 #define checkBit(variable, position) ((variable>>position)&(1UL) == 1UL)
 #define checkLSB(variable) (variable & 1UL)
 #define checkMSB (variable) (variable<<8)
+
+#endif /* BITMACROS_H */

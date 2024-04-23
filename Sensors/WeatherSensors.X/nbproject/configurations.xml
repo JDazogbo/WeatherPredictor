@@ -7,6 +7,9 @@
       <itemPath>DHT22.h</itemPath>
       <itemPath>HC05.h</itemPath>
       <itemPath>SensorSystem.h</itemPath>
+      <itemPath>BitMacros.h</itemPath>
+      <itemPath>Typedefs.h</itemPath>
+      <itemPath>SystemConfiguration.h</itemPath>
     </logicalFolder>
     <logicalFolder name="LinkerScript"
                    displayName="Linker Files"
@@ -17,6 +20,7 @@
                    projectFiles="true">
       <itemPath>testCharacter.c</itemPath>
       <itemPath>SensorSystem.c</itemPath>
+      <itemPath>HC05.c</itemPath>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
                    displayName="Important Files"
@@ -24,6 +28,9 @@
       <itemPath>Makefile</itemPath>
     </logicalFolder>
   </logicalFolder>
+  <sourceRootList>
+    <Elem>.</Elem>
+  </sourceRootList>
   <projectmakefile>Makefile</projectmakefile>
   <confs>
     <conf name="default" type="2">

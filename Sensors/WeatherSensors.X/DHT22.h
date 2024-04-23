@@ -1,6 +1,6 @@
 /* 
  * File:   DHT22.h
- * Author: Josue
+ * Author: JDazogbo
  *
  * Created on August 10, 2023, 7:30 PM
  */

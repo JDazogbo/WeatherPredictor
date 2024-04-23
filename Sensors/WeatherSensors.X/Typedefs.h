@@ -8,7 +8,8 @@
  */
 
 /* Integer Typedefs */
-
+#ifndef TYPEDEFS_H
+#define	TYPEDEFS_H
 typedef unsigned char uint8;
 typedef unsigned short uint16;
 typedef unsigned long uint32;
@@ -23,3 +24,5 @@ typedef signed long long sint64;
 /* Precompiler Typedefs*/
 #define WINDOWS __WIN32__
 #define MICROCONTROLLER __XC8
+
+#endif /* TYPEDEFS_H */

@@ -16,10 +16,9 @@
 #pragma config BOREN = OFF      // Brown Out Detect (BOR disabled)
 #pragma config IESO = OFF       // Internal External Switchover bit (Internal External Switchover mode is disabled)
 #pragma config FCMEN = OFF      // Fail-Safe Clock Monitor Enabled bit (Fail-Safe Clock Monitor is disabled)
-#include <xc.h>
 
+#include <xc.h>
 #include "SensorSystem.h"
-#include "HC05.h"
 
 #define PIC12F683
 
