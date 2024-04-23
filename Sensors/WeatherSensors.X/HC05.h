@@ -8,31 +8,21 @@
  *       to correctly interpret what the message is truly saying. This is true when a byte is read and when a byte is sent.
  */
 
-#ifndef HC05_H
-#define	HC05_H
+#ifndef HC05
+#define	HC05
 
 //Imports
 #include <xc.h>
+#include "Typedefs.h"
+#include "BitMacros.h"
 #include "SensorSystem.h"
 
-
-//Parameter Variables
-
-//Usefull Macros
-#define setBit(variable, position) ((variable) |= 1 << (position))
-#define clearBit(variable, position) ((variable) &= ~(1 << position))
-#define notBit(variable, position) ((variable) ^= 1UL << (position))
-#define checkBit(variable, position) ((variable>>position)&(1UL) == 1UL)
-#define checkLSB(variable) (variable & 1UL)
-#define checkMSB (variable) (variable<<8)
-
-
-void reverseByte(unsigned char *pByte)
+void reverseByte(uint8 *pByte)
 {
     //Code that reverses the character before sending it to the GPIO.
-    unsigned char temp = 0;
-    unsigned char temp2 = *pByte;
-    for (unsigned char i = 8; i>0; i--)
+    uint8 temp = 0;
+    uint8 temp2 = *pByte;
+    for (uint8 i = 8; i>0; i--)
     {
         temp = checkLSB(temp2)? temp*2+1: temp*2;
         temp2 = temp2>>1;
@@ -42,7 +32,7 @@ void reverseByte(unsigned char *pByte)
 }
 
 
-void readChar(unsigned char *pResult)
+void readChar(uint8 *pResult)
 {
     //Add a delay for the first initial bit. This delay is useless for the pic10f200 as the pic is too slow
     //Reads a bit at a time and waits for the value.
@@ -57,7 +47,7 @@ void readChar(unsigned char *pResult)
     reverseByte(pResult);
 }
 
-void sendChar(unsigned char character)
+void sendChar(uint8 character)
 {
     //Version of the Code that is optimized for space. Use delay of 50 for baud rate 9600 on PIC10F200
     
@@ -69,7 +59,7 @@ void sendChar(unsigned char character)
     __delay_us(BAUD_DELAY_TX);
     
     //Change the GPIO depending on the bit
-    for (unsigned char i = 8; i>0; i--)
+    for (uint8 i = 8; i>0; i--)
     {
         
         checkBit(character, i-1)? setBit(GPIO, BLUETOOTH_TX_GPIO): clearBit(GPIO, BLUETOOTH_TX_GPIO);
