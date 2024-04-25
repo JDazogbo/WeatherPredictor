@@ -20,5 +20,9 @@
 #define BLUETOOTH_TX_GPIO 0//Pin that transmits info to the HC-05 module
 #define BLUETOOTH_RX_GPIO 2//Pin that receives signals from HC-05 module
 
+/* Barometric Pressure Sensor Define Statements */
+#define BMP_SCL_GPIO 4
+#define BMP_SDA_GPIO 5
+
 #endif	/* SYSTEMCONFIGURATION_H */
 

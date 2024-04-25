@@ -19,6 +19,7 @@
 #if MICROCONTROLLER
 #include <xc.h>
 #include "HC05.h"
+#include "BMP180.h"
 #endif //MICROCONTROLLER
 
 
